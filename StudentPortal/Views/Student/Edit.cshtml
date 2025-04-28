@@ -1,0 +1,60 @@
+﻿@using StudentPortal.ViewModel
+@model StudentViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-action="Edit" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label>Name:</label>
+        <input type="text" asp-for="Name" class="form-control" required />
+    </div>
+
+    <div>
+        <label>Email:</label>
+        <input type="email" asp-for="Gmail" class="form-control" />
+    </div>
+
+    <div>
+        <label>Semester:</label>
+        <input type="text" asp-for="SemesterTerm" class="form-control" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(ViewBag.ExistingImage))
+    {
+        <div>
+            <label>Current Image:</label><br />
+            <img src="~/images/@System.IO.Path.GetFileName(ViewBag.ExistingImage)" class="student-image-preview" asp-append-version="true" />
+        </div>
+    }
+
+    <!-- Show Existing Image if Available 
+    @if (!string.IsNullOrEmpty(ViewBag.ExistingImage))
+    {
+        <div>
+            <label>Current Image:</label><br />
+            <img src="@ViewBag.ExistingImage" class="student-image-preview" />
+        </div>
+    }
+    -->
+    <!-- Upload New Image -->
+    <div>
+        <label>Upload New Image:</label>
+        <input type="file" asp-for="ImagePath" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">Save Changes</button>
+</form>
+
+<style>
+    .student-image-preview {
+        width: 150px;
+        height: 200px;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+</style>

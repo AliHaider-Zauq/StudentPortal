@@ -1,0 +1,27 @@
+﻿@model List<StudentPortal.ViewModels.ManageUsersRolesViewModel>
+@{
+    ViewData["Title"] = "Manage User Roles";
+    string userId = ViewBag.UserId;
+    string userEmail = ViewBag.UserEmail;
+}
+
+<h2>Manage User Roles</h2>
+<p><strong>User:</strong> @userEmail</p>
+
+<form asp-action="ManageRoles" method="post">
+    <input type="hidden" name="userId" value="@userId" />
+
+    @foreach (var role in Model)
+    {
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="model[@Model.IndexOf(role)].IsSelected" value="true" @(role.IsSelected ? "checked" : "") />
+            <input type="hidden" name="model[@Model.IndexOf(role)].RoleId" value="@role.RoleId" />
+            <input type="hidden" name="model[@Model.IndexOf(role)].RoleName" value="@role.RoleName" />
+            <label class="form-check-label">@role.RoleName</label>
+        </div>
+    }
+
+    <br />
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="AllUsers" class="btn btn-secondary">Cancel</a>
+</form>

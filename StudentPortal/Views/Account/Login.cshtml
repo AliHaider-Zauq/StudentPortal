@@ -1,0 +1,34 @@
+﻿@model StudentPortal.ViewModels.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Login</h2>
+
+<form asp-action="Login" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input asp-for="RememberMe" type="checkbox" />
+        <label asp-for="RememberMe">Remember me</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+    <div>
+        <a asp-action="ForgotPassword" asp-controller="Account" class="btn btn-link">Forgot Password?</a>
+    </div>
+     
+</form>

@@ -1,0 +1,25 @@
+﻿@using StudentPortal.Models
+@using System.Collections.Generic
+@model List<Student>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Student Details</h2>
+
+@foreach (var student in Model)
+{
+    <div class="col-md-4">
+        <div class="card">
+            <img src="~/images/@student.ImagePath" class="student-image" alt="Student Image" width="100%" height="50%" onerror="this.onerror=null; this.src='/images/default.png';" />
+            <!-- <img src="~/images/@student.ImagePath" alt="Student Image" width="100%" height="50%" />-->
+            <div class="card-body">
+                <h5 class="card-title"><strong>ID:</strong> @student.Id</h5>
+                <p><strong>Email:</strong> @student.Gmail</p>
+                <p><strong>Semester:</strong> @student.SemesterTerm</p>
+                <button class="btn btn-primary">Add</button>
+                <a href="@Url.Action("Delete", "Student", new { id = student.Id })" class="btn btn-danger">Delete</a>
+                <a asp-action="Edit" asp-route-id="@student.Id" class="btn btn-warning">Edit</a>
+            </div>
+        </div>
+    </div>
+}

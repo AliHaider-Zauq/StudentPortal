@@ -1,0 +1,35 @@
+﻿@model List<StudentPortal.Models.Student>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Student Portal</h2>
+
+<div class="row mt-3">
+    @foreach (var student in Model)
+    {
+        <div class="col-md-3">
+            <div class="card">
+                <img src="~/images/@student.ImagePath" class="student-image" alt="Student Image" width="100%" height="50%"
+                onerror="this.onerror=null; this.src='/images/default.png';" />
+                <div class="card-body text-center">
+                    <h5 class="card-title">@student.Name</h5>
+                    <a href="@Url.Action("ViewDetails", "Student", new { id = student.Id })" class="btn btn-info">View</a>
+
+                    @if(User.HasClaim("DeleteStudent", "true"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@student.Id" class="btn btn-warning">Edit</a>
+                    }
+
+                    <!-- ✅ Show "Delete" button only if user has "DeleteStudent" claim -->
+                    @if (User.HasClaim("DeleteStudent", "true"))
+                    {
+                        <a href="@Url.Action("Delete", "Student", new { id = student.Id })" class="btn btn-danger">Delete</a>
+                    }
+                </div>
+
+            </div>
+        </div>
+    }
+</div>

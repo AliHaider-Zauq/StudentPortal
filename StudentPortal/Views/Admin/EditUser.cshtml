@@ -1,0 +1,62 @@
+﻿@model StudentPortal.ViewModels.EditUserViewModel
+
+<h2>Edit User</h2>
+
+<form asp-action="EditUser" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label class="form-label">First Name</label>
+        <input asp-for="FirstName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Last Name</label>
+        <input asp-for="LastName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-action="AllUsers" class="btn btn-secondary">Cancel</a>
+    <!-- User Roles Section -->
+    <h4>Edit User Roles</h4>
+    @if (Model.Roles.Any())
+    {
+        <ul>
+            @foreach (var role in Model.Roles)
+            {
+                <li>@role</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>None at the moment.</p>
+    }
+    <a asp-controller="Admin" asp-action="ManageRoles" asp-route-userId="@Model.Id" class="btn btn-primary">
+        Add or Remove Roles
+    </a>
+    
+    <h3>User Claims</h3>
+    @if (Model.UserClaims.Count > 0)
+    {
+        <ul>
+            @foreach (var claim in Model.UserClaims)
+            {
+                <li>@claim</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>None at the moment.</p>
+    }
+    <a asp-controller="Admin" asp-action="ManageClaims" asp-route-userId="@Model.Id" class="btn btn-primary">Add or Remove User Claims</a>
+
+   
+</form>
+

@@ -1,0 +1,6 @@
+﻿.student-image {
+    width: 200px; /* Set a fixed width */
+    height: 250px; /* Set a fixed height */
+    object-fit: cover; /* Ensures the image is properly cropped */
+    border-radius: 10px; /* Optional: Adds rounded corners */
+}

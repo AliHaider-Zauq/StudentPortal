@@ -1,0 +1,31 @@
+﻿@model StudentPortal.ViewModel.StudentViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Create Student</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label>Name</label>
+        <input asp-for="Name" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label>ID</label>
+        <input asp-for="Id" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label>Gmail</label>
+        <input asp-for="Gmail" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Semester Term</label>
+        <input asp-for="SemesterTerm" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>File: </label>
+        <input asp-for="ImagePath" type="file" class="form-control" accept="image/*" />
+    </div>
+    <button type="submit" class="btn btn-success mt-3" >Submit</button>
+  
+</form>

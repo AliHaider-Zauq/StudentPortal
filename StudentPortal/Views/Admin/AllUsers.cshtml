@@ -1,0 +1,52 @@
+﻿@model List<ApplicationUser>
+
+<h2>All Users</h2>
+<a asp-controller="Account" asp-action="Register" class="btn btn-success mb-3">Add New User</a>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Email</td>
+                <td>
+                    <!-- ✅ Edit Button (Fixed) -->
+                    <button type="button" onclick="window.location.href='@Url.Action("EditUser", "Admin", new { id = user.Id })'"
+                            class="btn btn-primary btn-sm">
+                        Edit
+                    </button>
+
+                    <!-- ✅ Delete Button inside Separate Form to Show Confirmation -->
+                    <form method="post" asp-action="DeleteUser" asp-route-id="@user.Id" style="display:inline;">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="showDeleteConfirmation('@user.Id')">
+                            Delete
+                        </button>
+                    </form>
+
+                    <!-- ✅ Delete Confirmation (Initially Hidden) -->
+                    <div id="confirmDelete-@user.Id" class="delete-confirmation alert alert-warning mt-2" style="display:none;">
+                        <p>Are you sure you want to delete this user?</p>
+                        <form method="post" asp-action="DeleteUser" asp-route-id="@user.Id" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Yes</button>
+                        </form>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="hideDeleteConfirmation('@user.Id')">No</button>
+                    </div>
+                </td>
+            </tr>
+        }
+
+        @section Scripts {
+            <script src="~/js/deleteconfirmationt.js"></script>
+        }
+
+    </tbody>
+</table>

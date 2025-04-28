@@ -1,0 +1,59 @@
+﻿@model StudentPortal.ViewModels.ManageRoleUsersViewModel
+
+@{
+    ViewData["Title"] = "Manage Users in Role";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <h4>Manage Users in Role: @Model.RoleName</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="ManageUsers" method="post">
+                <input type="hidden" asp-for="RoleId" />
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>User Name</th>
+                            <th>Existing Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var i = 0; i < Model.Users.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="checkbox" asp-for="Users[i].IsSelected" />
+                                    <input type="hidden" asp-for="Users[i].UserId" />
+                                    <input type="hidden" asp-for="Users[i].UserName" />
+                                </td>
+                                <td>@Model.Users[i].UserName</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(Model.Users[i].ExistingRole) && Model.Users[i].ExistingRole != Model.RoleName)
+                                    {
+                                        <span class="badge bg-danger">
+                                            Already in @Model.Users[i].ExistingRole role
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success">Available</span>
+                                    }
+                                    <input type="hidden" asp-for="Users[i].ExistingRole" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="card-footer d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a asp-action="Edit" asp-route-id="@Model.RoleId" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
